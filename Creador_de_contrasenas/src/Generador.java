@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class Generador {
 
-    public String caracteresMin = "abcdefghijklmnopqrstuvwxyz";
-    public String caracteresMay = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public String numeros = "0123456789";
-    public String especiales = "!@#$%^&*()-_=+<>?";
+    public String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    public String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public String NUMBERS = "0123456789";
+    public String SPECIALS = "!@#$%^&*()-_=+<>?";
     public int longitud;
     public String Password;
 
@@ -17,35 +17,32 @@ public class Generador {
         longitud = (int) Float.parseFloat(JOptionPane.showInputDialog("Ingresa la longitud de la contraseña:"));
 
     }
-    public void generadorContra(int longitud, boolean caracteresMin, boolean caracteresMay, boolean especiales) {
-        String charPool = caracteresMin + numeros;
-        if (caracteresMin) charPool += caracteresMay;
-        if (especiales) charPool += especiales;
+        public String generatePassword(int length, boolean useUpper, boolean useSpecials) {
+            String charPool = LOWERCASE + NUMBERS;
+            if (useUpper) charPool += UPPERCASE;
+            if (useSpecials) charPool += SPECIALS;
 
-        StringBuilder password = new StringBuilder();
-        for (int i = 0; i < longitud; i++) {
-            password.append(charPool.charAt(random.nextInt(charPool.length())));
+            StringBuilder password = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                password.append(charPool.charAt(random.nextInt(charPool.length())));
+            }
+            return password.toString();
         }
-        JOptionPane.showMessageDialog(null, "La contrasena generada es: " + password);
-    }
 
-    public void Validacion(int longitud, int caracteresMin, int caracteresMay, int especiales) {
-        int score = 0;
-        if (longitud >= 8) score++;
-        if (caracteresMay == 1) score++;
-        if (caracteresMin == 1) score++;
-        if (especiales == 1) score++;
+        public String checkStrength(String password) {
+            int score = 0;
+            if (password.length() >= 8) score++;
+            if (password.matches(".*[A-Z].*")) score++;
+            if (password.matches(".*[0-9].*")) score++;
+            if (password.matches(".*[!@#$%^&*()-_=+<>?].*")) score++;
 
-        if (score == 4){
-            JOptionPane.showMessageDialog(null, "La contrasena es: FUERTE");
-        } else if (score == 3){
-            JOptionPane.showMessageDialog(null, "La contrasena es: MEDIA");
-        } else if (score == 2){
-            JOptionPane.showMessageDialog(null, "La contrasena es: DEBIL");
-        } else {
-            JOptionPane.showMessageDialog(null, "La contrasena NO ES SEGURA");
+            switch (score) {
+                case 4: return "Fuerte";
+                case 3: return "Media";
+                case 2: return "Débil";
+                default: return "Muy débil";
+            }
         }
-    }
 
 }// Fin de la clase
 

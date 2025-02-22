@@ -5,13 +5,16 @@ public class Main {
 
         Generador nueva = new Generador();
 
-        nueva.longitud = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la longitud de la contraseña:"));
-        nueva.caracteresMin = String.valueOf(Integer.parseInt(JOptionPane.showInputDialog("Desea usar MINUSCULAS:")));
-        nueva.caracteresMay = String.valueOf(Integer.parseInt(JOptionPane.showInputDialog("Desea usar MAYUSCULAS:")));
-        nueva.especiales = String.valueOf(Integer.parseInt(JOptionPane.showInputDialog("Desea usar caracteres ESPECIALES:")));
+        String inputLength = JOptionPane.showInputDialog("Ingrese la longitud del password (8 por defecto):");
+        int length = (inputLength != null && !inputLength.isEmpty()) ? Integer.parseInt(inputLength) : 8;
 
-        nueva.generadorContra(nueva.longitud, Boolean.parseBoolean(nueva.caracteresMin), Boolean.parseBoolean(nueva.caracteresMay), Boolean.parseBoolean(nueva.especiales));
-        
+        int useUpper = JOptionPane.showConfirmDialog(null, "¿Incluir mayúsculas?", "Opciones", JOptionPane.YES_NO_OPTION);
+        int useSpecials = JOptionPane.showConfirmDialog(null, "¿Incluir caracteres especiales?", "Opciones", JOptionPane.YES_NO_OPTION);
+
+        String password = nueva.generatePassword(length, useUpper == JOptionPane.YES_OPTION, useSpecials == JOptionPane.YES_OPTION);
+        String strength = nueva.checkStrength(password);
+
+        JOptionPane.showMessageDialog(null, "Password generado: " + password + "\nFortaleza: " + strength);
 
     }
 }
