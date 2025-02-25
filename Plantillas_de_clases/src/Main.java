@@ -2,14 +2,8 @@ public class Main {
     public static void main(String[] args) {
 
         //creacion de una primera instancia
-        Spartan MasterChief = new Spartan();
-        Spartan Reach = new Spartan();
-
-        //uso de los atributos
-        MasterChief.nombre = "John";
-        MasterChief.salud = 100;
-        MasterChief.escudo = 50;
-        MasterChief.armaPrincipal = "Pistola de plasma";
+        Spartan MasterChief = new Spartan("Jhon", 100, 50, "Pistola de plasma");
+        Spartan Reach = new Spartan("Antonio", 100, 0, "Espada de energia");
 
         //uso de los metodos
         MasterChief.mostrarInfo();
@@ -17,14 +11,16 @@ public class Main {
         MasterChief.RecargarArma(25);
         MasterChief.correr(true);
 
-        System.out.println();
-        System.out.println();
+        // INTENTO DE USO DE UN METODO PRIVADO:
+        // MasterChief.consultarCortana();
 
-        //Creacion de la segunda instancia
-        Reach.nombre = "Milaneso";
-        Reach.salud = 100;
-        Reach.escudo = 0;
-        Reach.armaPrincipal = "Espada de energia";
+        // USO DEL GET Y SET PARA CAMBIAR ATRIBUTOS DE UN OBJETO
+        MasterChief.setNombre("Antonio Madriz");
+        MasterChief.mostrarInfo();
+        System.out.println(MasterChief.getNombre());
+
+        System.out.println();
+        System.out.println();
 
         Reach.mostrarInfo();
         Reach.Atacar("Noble 6");
