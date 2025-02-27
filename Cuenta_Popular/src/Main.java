@@ -3,13 +3,13 @@ import javax.swing.JOptionPane;
 public class Main {
     public static void main(String[] args) {
 
-        // Creacion de una instancia
-        Cuenta Milaneso = new Cuenta();
+        // Creación de una instancia con datos iniciales
+        int noCuenta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de cuenta:"));
+        String titular = JOptionPane.showInputDialog("Ingrese el titular de la cuenta");
+        int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del titular:"));
+        float saldoInicial = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el saldo inicial"));
 
-        Milaneso.No_cuenta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de cuenta:"));
-        Milaneso.titular = JOptionPane.showInputDialog("Ingrese el titular de la cuenta");
-        Milaneso.edad = String.valueOf((int) Double.parseDouble(JOptionPane.showInputDialog("Ingerse la edad del titular")));
-        Milaneso.saldo = (float) Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo inicial"));
+        Cuenta milaneso = new Cuenta(noCuenta, titular, edad, saldoInicial);
 
         boolean salir = false;
         while (!salir) {
@@ -18,46 +18,30 @@ public class Main {
 
             switch (opcion) {
                 case 0:
-                    Milaneso.Consultar();
+                    milaneso.consultar();
                     break;
-
                 case 1:
-                    float monto = (float) Double.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad a ingresar: "));
-                    if(monto > 0 ) {
-                        Milaneso.Ingresar(monto);
-                    }else {
-                        JOptionPane.showMessageDialog(null, "La cantidad de ser positiva");
-                    }
-
+                    milaneso.ingresar();
                     break;
-
                 case 2:
-                    float Monto = (float) Double.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad a retirar: "));
-                    if(Monto > 0) {
-                        Milaneso.Retirar(Monto);
-                    }else {
-                        JOptionPane.showMessageDialog(null,"La cantidad debe de ser positiva");
-                    }
+                    milaneso.retirar();
                     break;
-
                 case 3:
-                    Cuenta MiCuenta = new Cuenta();
-                    MiCuenta.No_cuenta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cuenta a depositar"));
-                    MiCuenta.titular = JOptionPane.showInputDialog("Ingrese el titular de la cuenta");
-                    MiCuenta.edad = String.valueOf(Integer.parseInt((JOptionPane.showInputDialog("Ingrese la edad del titular de la cuenta: "))));
-                    MiCuenta.saldo = (float) Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo inicial de la otra cuenta: "));
-                    float montoDeposito = (float) Double.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad a depositar: "));
+                    int noCuentaDestino = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cuenta a depositar"));
+                    String titularDestino = JOptionPane.showInputDialog("Ingrese el titular de la cuenta");
+                    int edadDestino = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del titular de la cuenta:"));
+                    float saldoDestino = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el saldo inicial de la otra cuenta:"));
 
-                    Milaneso.Depositar(MiCuenta, montoDeposito);
+                    Cuenta miCuenta = new Cuenta(noCuentaDestino, titularDestino, edadDestino, saldoDestino);
+                    milaneso.depositar(miCuenta);
                     break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opcion no válida.");
-
-                case 4 :
+                case 4:
                     salir = true;
                     JOptionPane.showMessageDialog(null, "Gracias por su preferencia");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida.");
             }
-
         }
     }
 }
