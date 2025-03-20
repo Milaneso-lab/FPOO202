@@ -81,6 +81,11 @@ public class FormRegistro extends javax.swing.JFrame {
         btnLimpiar.setBackground(new java.awt.Color(204, 204, 204));
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,8 +154,37 @@ public class FormRegistro extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String nombre = txtnombre.getText();
+        String correo = txtcorreo.getText ();
+        String contrasena = txtcontrasena.getText ();
+        
+        if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Todos Los Cambios son Obligatorios", "ERROR", JOptionPane.ERROR);
+            return;
+        }
+        
+        UserCRUD crud = new UserCRUD (); 
+        boolean status = crud.crearUsuario(nombre, correo, contrasena);
+        
+        if (status ){
+            JOptionPane.showMessageDialog(this, "USUARIO GUARDADO", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(this, "No se guardo", "ERROR", JOptionPane.ERROR);
+        }
+        limpiarCampos();
     }//GEN-LAST:event_btnGuardarActionPerformed
+private void limpiarCampos (){
+        txtnombre.setText("");
+        txtcorreo.setText("");
+        txtcontrasena.setText("");
+    }
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+    
+   
     /**
      * @param args the command line arguments
      */
