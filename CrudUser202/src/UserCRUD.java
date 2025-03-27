@@ -10,6 +10,8 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+
 public class UserCRUD {
     private Connection conexion;
     
@@ -33,5 +35,36 @@ public class UserCRUD {
         return false;
                
         }
-    }
+    }// FIN DEL INSERT EN BOOLEAN 
+    
+    public ResultSet obtenerUsuarioPorID (int id){
+     String selectSQL = "SELECT * FROM Usuarios WHERE id =? ";
+     
+     try {
+        PreparedStatement ps = conexion.prepareStatement (selectSQL);
+        ps.setInt(1, id);
+        return ps.executeQuery();
+        
+     }
+     catch (SQLException e){
+        System.out.println("Error al intentar consultar" + e.getMessage());
+        return null;
+     }
+     
+    }// FIN OBTENER USUARIO POR ID 
+    
+    public ResultSet obtenerTodos (){
+      String sqlTodos ="SELECT * FROM Usuarios";
+      
+      try {
+        PreparedStatement ps = conexion.prepareStatement (sqlTodos);
+        return ps.executeQuery();
+      }
+      catch(SQLException w){
+          System.out.println("Error al consultar" + w.getMessage());
+          return null;
+      }
+      
+    }// FIN OBTENER TODOS 
+    
 }
