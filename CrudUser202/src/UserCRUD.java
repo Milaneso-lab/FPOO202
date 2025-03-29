@@ -67,4 +67,21 @@ public class UserCRUD {
       
     }// FIN OBTENER TODOS 
     
+    public boolean actualizarUsuario(int id, String nombre, String correo, String contrasena) {
+    String sqlUpdate = "UPDATE usuarios SET nombre = ?, correo = ?, contrasena = ? WHERE id = ?";
+    
+    try {
+        PreparedStatement ps = conexion.prepareStatement(sqlUpdate);
+        ps.setString(1, nombre);
+        ps.setString(2, correo);
+        ps.setString(3, contrasena);
+        ps.setInt(4, id);
+        
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println("Error al intentar actualizar: " + e.getMessage());
+        return false;
+    }
+}
+    
 }
