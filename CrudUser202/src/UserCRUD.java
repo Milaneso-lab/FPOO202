@@ -82,6 +82,21 @@ public class UserCRUD {
         System.out.println("Error al intentar actualizar: " + e.getMessage());
         return false;
     }
-}
+    }// FIN DE ACTUALIZAR USUARIO
+    
+    public boolean eliminarUsuario(int id) {
+    String eliminarsql = "DELETE FROM usuarios WHERE id = ?";
+    
+    try {
+        PreparedStatement ps = conexion.prepareStatement(eliminarsql);
+        ps.setInt(1, id);
+        
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println("Error al intentar eliminar: " + e.getMessage());
+        return false;
+    }
+    
+    }// FIN DE ELIMINARUSUARIO
     
 }
